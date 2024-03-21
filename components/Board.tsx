@@ -1,5 +1,6 @@
 import { Board as BoardType, Flag as FlagType } from "@/app/types";
-import { Ellipsis, Plus, PlusIcon } from "lucide-react";
+import { Plus, PlusIcon } from "lucide-react";
+import { IoEllipsisHorizontalCircle } from "react-icons/io5";
 import { Task } from "./Task";
 import Image from "next/image";
 
@@ -20,7 +21,7 @@ export const Board: React.FC<BoardProps> = ({ board, flags }) => {
 				</div>
 				<div className='text-[#98A2B3] flex items-center gap-4'>
 					<Plus />
-					<Ellipsis />
+					<IoEllipsisHorizontalCircle size={22} />
 				</div>
 			</div>
 			{board.tasks.length > 0 ? (
