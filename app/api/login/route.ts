@@ -13,12 +13,25 @@ export async function POST(req: Request) {
 
 		const data = await response.json();
 
-		return new Response(JSON.stringify(data), {
-			status: 200,
-			headers: {
+		if (response.ok) {
+			const token = data.data.token;
+			const info = data.data;
+			const headers = new Headers({
 				"Content-Type": "application/json",
-			},
-		});
+				"Set-Cookie": `token=${token}; HttpOnly; Path=/; SameSite=Strict; Secure`,
+			});
+			return new Response(JSON.stringify({ status: "success", data: info }), {
+				status: 200,
+				headers: headers,
+			});
+		} else {
+			return new Response(JSON.stringify(data), {
+				status: response.status,
+				headers: {
+					"Content-Type": "application/json",
+				},
+			});
+		}
 	} catch (error) {
 		console.error("Login API route error:", error);
 		return new Response(JSON.stringify({ error: "An error occurred" }), {

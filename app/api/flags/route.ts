@@ -1,8 +1,10 @@
-import { NextApiResponse } from "next";
-
-export async function GET(req: Request, res: NextApiResponse) {
+export async function GET(req: Request) {
 	try {
-		const token = req.headers.get("authorization")?.split(" ")[1];
+		const token = req.headers
+			.get("cookie")
+			?.split("; ")
+			.find((c) => c.startsWith("token="))
+			?.split("=")[1];
 
 		const response = await fetch(`${process.env.API_BASE_URL}/commons/flags`, {
 			method: "GET",
@@ -21,7 +23,7 @@ export async function GET(req: Request, res: NextApiResponse) {
 			},
 		});
 	} catch (error) {
-		console.error("Login API route error:", error);
+		console.error("Boards API route error:", error);
 		return new Response(JSON.stringify({ error: "An error occurred" }), {
 			status: 500,
 			headers: {

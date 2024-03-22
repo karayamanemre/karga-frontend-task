@@ -9,17 +9,13 @@ export default function DashboardPage() {
 	const [flags, setFlags] = useState<FlagType[]>([]);
 
 	const fetchBoardsAndFlags = async () => {
-		const token = localStorage.getItem("token");
-		if (!token) {
-			throw new Error("No token found");
-		}
-
 		try {
 			const boardsResponse = await fetch("/api/boards", {
 				method: "GET",
 				headers: {
-					Authorization: `Bearer ${token}`,
+					Accept: "application/json",
 				},
+				credentials: "include",
 			});
 			if (boardsResponse.ok) {
 				const { data: boardsData } = await boardsResponse.json();
@@ -29,8 +25,9 @@ export default function DashboardPage() {
 			const flagsResponse = await fetch("/api/flags", {
 				method: "GET",
 				headers: {
-					Authorization: `Bearer ${token}`,
+					Accept: "application/json",
 				},
+				credentials: "include",
 			});
 			if (flagsResponse.ok) {
 				const { data: flagsData } = await flagsResponse.json();
