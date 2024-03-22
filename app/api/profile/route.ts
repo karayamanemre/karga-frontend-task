@@ -6,7 +6,7 @@ export async function GET(req: Request) {
 			.find((c) => c.startsWith("token="))
 			?.split("=")[1];
 
-		const response = await fetch(`${process.env.API_BASE_URL}/commons/flags`, {
+		const response = await fetch(`${process.env.API_BASE_URL}/auth/profile`, {
 			method: "GET",
 			headers: {
 				Accept: "application/json",
@@ -23,7 +23,7 @@ export async function GET(req: Request) {
 			},
 		});
 	} catch (error) {
-		console.error("Flags API route error:", error);
+		console.error("Profile API route error:", error);
 		return new Response(JSON.stringify({ error: "An error occurred" }), {
 			status: 500,
 			headers: {

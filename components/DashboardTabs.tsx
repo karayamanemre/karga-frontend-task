@@ -1,24 +1,11 @@
 "use client";
+import { useBoard } from "@/app/contexts/BoardContext";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Board as BoardType, Flag as FlagType } from "@/app/types";
 import { Board } from "./Board";
-import { DragDropContext, DropResult } from "react-beautiful-dnd";
-import { useEffect, useState } from "react";
+import { DragDropContext, DropResult } from "@hello-pangea/dnd";
 
-interface DashboardTabsProps {
-	boards: BoardType[];
-	flags: FlagType[];
-}
-
-export const DashboardTabs: React.FC<DashboardTabsProps> = ({
-	boards,
-	flags,
-}) => {
-	const [localBoards, setLocalBoards] = useState<BoardType[]>([]);
-
-	useEffect(() => {
-		setLocalBoards(boards);
-	}, [boards]);
+export const DashboardTabs = () => {
+	const { boards, setBoards, flags, setFlags } = useBoard();
 
 	const onDragEnd = async (result: DropResult) => {
 		const { draggableId, source, destination } = result;
@@ -26,7 +13,7 @@ export const DashboardTabs: React.FC<DashboardTabsProps> = ({
 		if (!destination) return;
 
 		if (destination.droppableId === source.droppableId) {
-			const newBoards = [...localBoards];
+			const newBoards = [...boards];
 			const sourceBoard = newBoards.find(
 				(board) => board.id === parseInt(source.droppableId)
 			);
@@ -38,9 +25,9 @@ export const DashboardTabs: React.FC<DashboardTabsProps> = ({
 				sourceBoard?.tasks.splice(destination.index, 0, movedTask);
 			}
 
-			setLocalBoards(newBoards);
+			setBoards(newBoards);
 		} else {
-			const newBoards = [...localBoards];
+			const newBoards = [...boards];
 			const sourceBoard = newBoards.find(
 				(board) => board.id === parseInt(source.droppableId)
 			);
@@ -55,7 +42,7 @@ export const DashboardTabs: React.FC<DashboardTabsProps> = ({
 				destinationBoard?.tasks.splice(destination.index, 0, movedTask);
 			}
 
-			setLocalBoards(newBoards);
+			setBoards(newBoards);
 		}
 
 		const boardId = parseInt(destination.droppableId);
@@ -103,7 +90,7 @@ export const DashboardTabs: React.FC<DashboardTabsProps> = ({
 					value='boards'
 					className='flex overflow-x-auto py-2 scrollbar-none'>
 					<div className='flex space-x-2'>
-						{localBoards.map((board) => (
+						{boards.map((board) => (
 							<Board
 								key={board.id}
 								board={board}

@@ -15,12 +15,11 @@ export async function POST(req: Request) {
 
 		if (response.ok) {
 			const token = data.data.token;
-			const info = data.data;
 			const headers = new Headers({
 				"Content-Type": "application/json",
 				"Set-Cookie": `token=${token}; HttpOnly; Path=/; SameSite=Strict; Secure`,
 			});
-			return new Response(JSON.stringify({ status: "success", data: info }), {
+			return new Response(JSON.stringify({ status: "success" }), {
 				status: 200,
 				headers: headers,
 			});

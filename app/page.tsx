@@ -4,14 +4,12 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff, LogIn } from "lucide-react";
-import { useUser } from "./contexts/UserContext";
 
 export default function Home() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [isPasswordShown, setIsPasswordShown] = useState(false);
 	const [errorMessage, setErrorMessage] = useState("");
-	const { setUser } = useUser();
 	const router = useRouter();
 
 	const togglePasswordVisibility = () => {
@@ -43,8 +41,6 @@ export default function Home() {
 			const data = await response.json();
 
 			if (response.ok) {
-				const { fullName, email } = data.data;
-				setUser({ fullName, email });
 				router.push("/dashboard");
 			} else {
 				const errorMessage =

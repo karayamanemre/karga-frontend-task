@@ -1,4 +1,4 @@
-export async function GET(req: Request) {
+export async function POST(req: Request) {
 	try {
 		const token = req.headers
 			.get("cookie")
@@ -6,24 +6,28 @@ export async function GET(req: Request) {
 			.find((c) => c.startsWith("token="))
 			?.split("=")[1];
 
-		const response = await fetch(`${process.env.API_BASE_URL}/commons/flags`, {
-			method: "GET",
+		const taskUpdateData = await req.json();
+
+		const response = await fetch(`${process.env.API_BASE_URL}/tasks`, {
+			method: "POST",
 			headers: {
 				Accept: "application/json",
+				"Content-Type": "application/json",
 				Authorization: `Bearer ${token}`,
 			},
+			body: JSON.stringify(taskUpdateData),
 		});
 
 		const data = await response.json();
 
 		return new Response(JSON.stringify(data), {
-			status: 200,
+			status: response.status,
 			headers: {
 				"Content-Type": "application/json",
 			},
 		});
 	} catch (error) {
-		console.error("Flags API route error:", error);
+		console.error("Task add API route error:", error);
 		return new Response(JSON.stringify({ error: "An error occurred" }), {
 			status: 500,
 			headers: {

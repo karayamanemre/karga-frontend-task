@@ -1,6 +1,8 @@
+import type { Metadata } from "next";
+import { BoardProvider } from "../contexts/BoardContext";
+import { UserProfileProvider } from "../contexts/UserContext";
 import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";
-import type { Metadata } from "next";
 
 export const metadata: Metadata = {
 	title: "Create Next App",
@@ -13,10 +15,14 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<main>
-			<Sidebar />
-			<Navbar />
-			{children}
-		</main>
+		<BoardProvider>
+			<UserProfileProvider>
+				<main className='overflow-hidden'>
+					<Sidebar />
+					<Navbar />
+					{children}
+				</main>
+			</UserProfileProvider>
+		</BoardProvider>
 	);
 }

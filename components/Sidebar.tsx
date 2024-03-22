@@ -1,5 +1,5 @@
 "use client";
-import { useUser } from "@/app/contexts/UserContext";
+import { useUserProfile } from "@/app/contexts/UserContext";
 import {
 	Accordion,
 	AccordionContent,
@@ -10,8 +10,7 @@ import { BarChart2, Bell } from "lucide-react";
 import Image from "next/image";
 
 export default function Sidebar() {
-	const { user } = useUser();
-
+	const { user } = useUserProfile();
 	return (
 		<aside className='fixed top-0 left-0 h-full pt-[72px] flex'>
 			<div className='w-[72px] bg-[#363f72] flex flex-col items-center justify-between py-10 text-[#667085] px-2'>

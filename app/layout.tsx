@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { cn } from "@/lib/utils";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import { UserProvider } from "./contexts/UserContext";
 
 const poppins = Poppins({
 	subsets: ["latin"],
@@ -20,16 +19,14 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<UserProvider>
-			<html lang='en'>
-				<body
-					className={cn(
-						"min-h-screen bg-background antialiased",
-						poppins.className
-					)}>
-					{children}
-				</body>
-			</html>
-		</UserProvider>
+		<html lang='en'>
+			<body
+				className={cn(
+					"min-h-screen bg-background antialiased",
+					poppins.className
+				)}>
+				{children}
+			</body>
+		</html>
 	);
 }

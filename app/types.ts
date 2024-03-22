@@ -20,6 +20,7 @@ export interface Task {
 	order: number;
 	startDate: string;
 	updatedAt: string;
+	unitName?: string;
 }
 
 export interface Board {

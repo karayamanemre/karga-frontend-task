@@ -1,32 +1,59 @@
 "use client";
-import { createContext, useContext, useState } from "react";
+import {
+	createContext,
+	useContext,
+	useState,
+	useEffect,
+	ReactNode,
+} from "react";
 
-type UserType = {
+interface UserProfileType {
 	fullName: string;
 	email: string;
-} | null;
+}
 
-type UserContextType = {
-	user: UserType;
-	setUser: (user: UserType) => void;
-};
+interface UserProfileContextType {
+	user: UserProfileType | null;
+	setUser: React.Dispatch<React.SetStateAction<UserProfileType | null>>;
+}
 
-const UserContext = createContext<UserContextType | undefined>(undefined);
+const UserProfileContext = createContext<UserProfileContextType | null>(null);
 
-export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
+export const useUserProfile = () =>
+	useContext(UserProfileContext) as UserProfileContextType;
+
+export const UserProfileProvider: React.FC<{ children: ReactNode }> = ({
 	children,
 }) => {
-	const [user, setUser] = useState<UserType>(null);
+	const [user, setUser] = useState<UserProfileType | null>(null);
 
-	const value = { user, setUser };
+	useEffect(() => {
+		const fetchProfile = async () => {
+			try {
+				const response = await fetch("/api/profile", {
+					method: "GET",
+					headers: {
+						Accept: "application/json",
+					},
+					credentials: "include",
+				});
+				if (response.ok) {
+					const { data } = await response.json();
+					setUser(data);
+				} else {
+					throw new Error("Failed to fetch profile");
+				}
+			} catch (error) {
+				console.error("Failed to fetch profile:", error);
+			}
+		};
 
-	return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
-};
+		fetchProfile();
+	}, []);
 
-export const useUser = (): UserContextType => {
-	const context = useContext(UserContext);
-	if (context === undefined) {
-		throw new Error("useUser must be used within a UserProvider");
-	}
-	return context;
+	return (
+		<UserProfileContext.Provider value={{ user, setUser }}>
+			{children}
+		</UserProfileContext.Provider>
+	);
 };
