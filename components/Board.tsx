@@ -25,10 +25,12 @@ export const Board: React.FC<BoardProps> = ({ board, flags }) => {
 	}, []);
 
 	return (
-		<div className='rounded-xl bg-white border w-[319px] h-[550px] overflow-x-auto scrollbar-none'>
-			<div className='w-full sticky bg-white z-20 top-0 flex items-center shadow-b justify-between border-b p-4'>
+		<div className='rounded-xl bg-white w-[220px] border md:w-[319px] h-[400px] md:h-[550px] overflow-x-auto scrollbar-none'>
+			<div className='w-full sticky bg-white z-20 top-0 flex items-center shadow-b justify-between border-b md:p-4 p-2'>
 				<div className='flex items-center gap-4'>
-					<h3 className='text-base text-[#4E5BA6] uppercase'>{board.name}</h3>
+					<h3 className='text-sm md:text-base text-[#4E5BA6] uppercase'>
+						{board.name}
+					</h3>
 					<span className='text-[#175CD3] bg-[#EFF8FF] text-xs w-5 h-5 rounded-full border-[#B2DDFF] text-center border flex items-center justify-center'>
 						{board.tasks.length}
 					</span>

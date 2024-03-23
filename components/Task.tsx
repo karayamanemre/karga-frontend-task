@@ -70,23 +70,23 @@ export const Task: React.FC<TaskProps> = ({ task, index }) => {
 				isOpen={isModalOpen}
 				onClose={handleCloseModal}
 				task={task}>
-				<div className='md:w-4/6 w-3/6 flex flex-col h-full md:p-6 p-2 border-r'>
+				<div className='md:w-4/6 w-full flex flex-col h-full md:p-6 p-2 border-r'>
 					<p className='self-end border rounded-lg p-2 text-xs md:text-sm'>
 						{new Date(task.startDate).toLocaleDateString()} -{" "}
 						{new Date(task.endDate).toLocaleDateString()}
 					</p>
-					<h2 className='md:text-xl text-base font-semibold p-10'>
+					<h2 className='md:text-xl text-base font-semibold md:p-10 p-2'>
 						{task.name}
 					</h2>
-					<p className='flex items-center px-10 py-6 text-xs md:text-sm'>
+					<p className='flex items-center md:px-10 md:py-6 px-2 py-0 text-xs md:text-sm'>
 						ID: #{task.id} <Copy className='ml-2 md:w-4 md:h-4 h-3 w-3' />
 					</p>
 					<div className='flex flex-col md:flex-row md:items-center items-start md:gap-4 gap-1 md:px-10 px-2'>
-						<div className='flex flex-col justify-between md:p-10 p-2 md:gap-6 gap-1'>
+						<div className='flex flex-col justify-between md:p-10 py-2 md:gap-6 gap-1'>
 							<p className='text-xs md:text-base'>Task Status</p>
 							<p className='font-semibold text-xs md:text-base'>{boardName}</p>
 						</div>
-						<div className='flex flex-col md:p-10 p-2 gap-2 md:gap-6'>
+						<div className='flex flex-col md:p-10 gap-2 md:gap-6'>
 							<p className='text-xs md:text-base'>Assingment</p>
 							<div className='flex items-center'>
 								<Avatars />
@@ -98,7 +98,7 @@ export const Task: React.FC<TaskProps> = ({ task, index }) => {
 								</Button>
 							</div>
 						</div>
-						<div className='flex flex-col md:p-10 p-2 gap-2 md:gap-6'>
+						<div className='flex flex-col md:p-10 gap-2 md:gap-6'>
 							<p className='text-xs md:text-base'>Priority</p>
 							{taskFlag && (
 								<>

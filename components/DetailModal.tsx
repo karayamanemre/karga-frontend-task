@@ -81,8 +81,8 @@ const DetailModal: React.FC<ModalProps> = ({
 			<div
 				className='bg-white rounded-lg border shadow-xl max-w-[95vw] w-full h-[95vh] overflow-hidden pb-0'
 				onClick={(e) => e.stopPropagation()}>
-				<div className='flex justify-between items-center border-b p-3 text-[#475467]'>
-					<div className='flex items-center md:gap-4 gap-1 text-xs md:text-base font-semibold'>
+				<div className='flex justify-center md:justify-between items-center border-b p-3 text-[#475467]'>
+					<div className='md:flex hidden items-center gap-4  text-base font-semibold'>
 						<ChevronUp />
 						<ChevronDown />
 						<RiHome6Line className='w-4 h-4 md:w-6 md:-h6' />
@@ -94,7 +94,7 @@ const DetailModal: React.FC<ModalProps> = ({
 						<p className='text-[#2083D7]'>Frontend Case</p>
 						<Move className='h-4 w-4 hidden md:flex' />
 					</div>
-					<div className='flex items-center text-[#98A2B3] md:gap-4 gap-0'>
+					<div className='flex sm:justify-center justify-between w-full sm:w-max items-center text-[#98A2B3] md:gap-4 gap-0'>
 						<Popover>
 							<PopoverTrigger>
 								<Button
@@ -155,9 +155,9 @@ const DetailModal: React.FC<ModalProps> = ({
 						</Button>
 					</div>
 				</div>
-				<div className='flex h-full'>
+				<div className='flex h-full justify-between'>
 					{children}
-					<div className='border-r h-full flex flex-col w-[400px]'>
+					<div className='border-r h-full flex flex-col md:w-[400px] w-[150px]'>
 						<div className='w-full border-b'>
 							<div className='flex w-full md:p-3 p-1 items-center justify-between'>
 								<h2 className='text-[#145389] font-semibold text-xs md:text-base'>
@@ -173,7 +173,7 @@ const DetailModal: React.FC<ModalProps> = ({
 							<ActivityItem />
 						</div>
 					</div>
-					<div className='flex flex-col md:p-6 md:gap-6 p-0 gap-2  items-center justify-start h-full text-[#D0D5DD]'>
+					<div className='md:flex flex-col md:p-6 md:gap-6 p-0 gap-2 hidden items-center justify-start h-full text-[#D0D5DD]'>
 						<div className='flex flex-col items-center'>
 							<MessageSquareText
 								size={30}

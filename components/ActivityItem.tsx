@@ -90,7 +90,7 @@ export default function ActivityItem() {
 
 	return (
 		<div className='relative bg-[#F3F6FD]'>
-			<div className='absolute left-[30px] top-0 bottom-0 w-0.5 bg-gray-300'></div>
+			<div className='absolute left-[27px] md:left-[30px] top-0 bottom-0 md:w-0.5 w-[1px] bg-gray-300'></div>
 
 			{activity.map((activity, index) => (
 				<div
@@ -101,7 +101,7 @@ export default function ActivityItem() {
 							<Image
 								src={activity.userImage}
 								alt={activity.userName}
-								className='rounded-full w-8 h-8'
+								className='rounded-full w-6 h-6 md:w-8 md:h-8'
 								width={32}
 								height={32}
 							/>
@@ -112,15 +112,19 @@ export default function ActivityItem() {
 							)}
 						</div>
 						<div>
-							<p className='font-medium text-sm'>{activity.userName}</p>
-							<p className='text-xs text-gray-500'>{activity.timeAgo}</p>
+							<p className='font-medium text-xs md:text-sm'>
+								{activity.userName}
+							</p>
+							<p className='md:text-xs text-[10px] text-gray-500'>
+								{activity.timeAgo}
+							</p>
 						</div>
 					</div>
-					<div className='pl-12 text-sm pt-2 pb-4'>
+					<div className='pl-12 text-sm pt-0 md:pt-2 md:pb-4 pb-1'>
 						<p className='text-xs'>{activity.addedMessage}</p>
 					</div>
 					{activity.isOnline && (
-						<span className='absolute right-10 top-4 block h-4 w-4 bg-green-500 rounded-full border-2 border-white'></span>
+						<span className='absolute right-10 top-4 md:block hidden h-4 w-4 bg-green-500 rounded-full border-2 border-white'></span>
 					)}
 				</div>
 			))}

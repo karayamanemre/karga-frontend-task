@@ -1,14 +1,14 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FileText, Paperclip } from "lucide-react";
-import SubTask from "./ui/SubTask";
+import SubTask from "./SubTask";
 import AttachmentItem from "./AttachmentItem";
 
 export default function DetailTabs() {
 	return (
 		<Tabs
 			defaultValue='boards'
-			className='w-full md:mt-4 mt-2 flex flex-col rounded-xl border'>
-			<TabsList className='w-full bg-gray-100 justify-start md:justify-around rounded-b-none'>
+			className='md:w-full md:mt-4 mt-2 flex flex-col rounded-xl border'>
+			<TabsList className='md:w-full flex flex-wrap bg-gray-100 justify-start md:justify-around rounded-b-none'>
 				<TabsTrigger
 					value='attachment'
 					className='border-none flex items-center gap-2 text-xs md:text-sm'>
@@ -45,7 +45,6 @@ export default function DetailTabs() {
 			<TabsContent
 				value='subtask'
 				className='flex flex-col'>
-				<SubTask />
 				<SubTask />
 			</TabsContent>
 		</Tabs>

@@ -21,13 +21,13 @@ export default function Sidebar({
 	return (
 		<aside className='fixed top-0 left-0 h-full pt-[72px] flex'>
 			<div className='w-[72px] bg-[#363f72] flex flex-col items-center justify-between py-10 text-[#667085] px-2'>
-				<div className='flex flex-col gap-8'>
+				<div className='flex flex-col gap-4 md:gap-8'>
 					<Bell size={24} />
 					<Bell size={24} />
 					<Bell size={24} />
 					<Bell size={24} />
 				</div>
-				<div className='flex flex-col gap-8 items-center'>
+				<div className='flex flex-col gap-4 md:gap-8 items-center'>
 					<Bell size={24} />
 					<Bell size={24} />
 					<Bell size={24} />
