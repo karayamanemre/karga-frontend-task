@@ -68,14 +68,15 @@ export const Task: React.FC<TaskProps> = ({ task, index }) => {
 			</Draggable>
 			<DetailModal
 				isOpen={isModalOpen}
-				onClose={handleCloseModal}>
-				<div className='w-4/6 flex flex-col h-full p-4 border-r'>
-					<p className='self-end border rounded-lg p-2'>
+				onClose={handleCloseModal}
+				taskCode={task.code}>
+				<div className='w-4/6 flex flex-col h-full p-6 border-r'>
+					<p className='self-end border rounded-lg p-2 text-sm'>
 						{new Date(task.startDate).toLocaleDateString()} -{" "}
 						{new Date(task.endDate).toLocaleDateString()}
 					</p>
 					<h2 className='text-xl font-semibold p-10'>{task.name}</h2>
-					<p className='flex items-center px-10 py-6'>
+					<p className='flex items-center px-10 py-6 text-sm'>
 						ID: #{task.id}{" "}
 						<Copy
 							size={16}
@@ -121,7 +122,6 @@ export const Task: React.FC<TaskProps> = ({ task, index }) => {
 					</div>
 					<DetailTabs />
 				</div>
-				<div className='w-2/6'></div>
 			</DetailModal>
 		</>
 	);

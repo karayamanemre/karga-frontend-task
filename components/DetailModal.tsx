@@ -1,9 +1,13 @@
+import { useBoard } from "@/app/contexts/BoardContext";
 import {
 	ChevronDown,
 	ChevronRight,
 	ChevronUp,
 	Ellipsis,
+	ListFilter,
+	MessageSquareText,
 	Move,
+	Search,
 	SquareArrowOutUpRight,
 	Star,
 	Trash,
@@ -16,14 +20,24 @@ import {
 	PopoverContent,
 	PopoverTrigger,
 } from "@/components/ui/popover";
+import { toast } from "sonner";
+import ActivityItem from "./ActivityItem";
 
 interface ModalProps {
 	isOpen: boolean;
 	onClose: () => void;
 	children: React.ReactNode;
+	taskCode: number;
 }
 
-const DetailModal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
+const DetailModal: React.FC<ModalProps> = ({
+	isOpen,
+	onClose,
+	children,
+	taskCode,
+}) => {
+	const { deleteTask } = useBoard();
+
 	if (!isOpen) return null;
 
 	return (
@@ -31,9 +45,9 @@ const DetailModal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
 			className='fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center'
 			onClick={onClose}>
 			<div
-				className='bg-white rounded-lg border shadow-xl max-w-7xl w-full'
+				className='bg-white rounded-lg border shadow-xl max-w-[95vw] w-full h-[95vh] overflow-hidden pb-0'
 				onClick={(e) => e.stopPropagation()}>
-				<div className='flex justify-between items-center border-b p-4 text-[#475467]'>
+				<div className='flex justify-between items-center border-b p-3 text-[#475467]'>
 					<div className='flex items-center gap-4 font-semibold'>
 						<ChevronUp />
 						<ChevronDown />
@@ -59,6 +73,10 @@ const DetailModal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
 								<Button
 									variant='destructive'
 									size='sm'
+									onClick={() => {
+										deleteTask(taskCode);
+										setTimeout(() => toast("Task başarıyla silindi"), 750);
+									}}
 									className='flex items-center gap-2'>
 									<Trash size={20} />
 									<p>Taskı Sil</p>
@@ -85,7 +103,49 @@ const DetailModal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
 						</Button>
 					</div>
 				</div>
-				<div className='flex h-[600px]'>{children}</div>
+				<div className='flex h-full'>
+					{children}
+					<div className='border-r h-full flex flex-col w-[400px]'>
+						<div className='w-full border-b'>
+							<div className='flex w-full p-3 items-center justify-between'>
+								<h2 className='text-[#145389] font-semibold'>Activity</h2>
+								<div className='flex gap-4 text-[#98A2B3]'>
+									<Search />
+									<ListFilter />
+								</div>
+							</div>
+						</div>
+						<div className='flex flex-col overflow-scroll scrollbar-none'>
+							<ActivityItem />
+						</div>
+					</div>
+					<div className='flex flex-col p-6 gap-6 items-center justify-start h-full text-[#D0D5DD]'>
+						<div className='flex flex-col items-center'>
+							<MessageSquareText
+								size={30}
+								className='text-[#F79009]'
+							/>
+							<span className='text-sm text-[#F79009]'>Activity</span>
+						</div>
+
+						<div className='flex flex-col items-center'>
+							<MessageSquareText size={30} />
+							<span className='text-sm'>Condition</span>
+						</div>
+						<div className='flex flex-col items-center'>
+							<MessageSquareText size={30} />
+							<span className='text-sm'>QA</span>
+						</div>
+						<div className='flex flex-col items-center'>
+							<MessageSquareText size={30} />
+							<span className='text-sm'>Meetings</span>
+						</div>
+						<div className='flex flex-col items-center'>
+							<MessageSquareText size={30} />
+							<span className='text-sm'>Docs</span>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	);

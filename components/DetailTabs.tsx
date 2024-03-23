@@ -1,5 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Paperclip } from "lucide-react";
+import { FileText, Paperclip } from "lucide-react";
+import SubTask from "./ui/SubTask";
+import AttachmentItem from "./AttachmentItem";
 
 export default function DetailTabs() {
 	return (
@@ -28,7 +30,15 @@ export default function DetailTabs() {
 			</TabsList>
 			<TabsContent
 				value='attachment'
-				className='flex'></TabsContent>
+				className='flex flex-col h-full'>
+				<AttachmentItem />
+			</TabsContent>
+			<TabsContent
+				value='subtask'
+				className='flex flex-col'>
+				<SubTask />
+				<SubTask />
+			</TabsContent>
 		</Tabs>
 	);
 }

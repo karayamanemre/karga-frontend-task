@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Toaster } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils";
 import { Poppins } from "next/font/google";
 import "./globals.css";
@@ -27,6 +28,7 @@ export default function RootLayout({
 				)}>
 				{children}
 			</body>
+			<Toaster />
 		</html>
 	);
 }
