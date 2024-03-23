@@ -1,7 +1,11 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useBoard } from "@/app/contexts/BoardContext";
-import { Task as TaskType, Flag as FlagType } from "@/app/types";
+import {
+	Task as TaskType,
+	Flag as FlagType,
+	Board as BoardType,
+} from "@/app/types";
 import { DatePickerWithRange } from "./DatePicker";
 import { DateRange } from "react-day-picker";
 import { Input } from "./ui/input";
@@ -26,7 +30,7 @@ export const EditTaskForm: React.FC<EditTaskFormProps> = ({
 	onSubmit,
 	onCancel,
 }) => {
-	const { flags } = useBoard();
+	const { flags, boards } = useBoard();
 	const [editedTask, setEditedTask] = useState<TaskType>(task);
 	const [dateRange, setDateRange] = useState<DateRange | undefined>({
 		from: new Date(task.startDate),
@@ -52,6 +56,13 @@ export const EditTaskForm: React.FC<EditTaskFormProps> = ({
 		setEditedTask((prevTask) => ({
 			...prevTask,
 			flagId: Number(selectedFlagId),
+		}));
+	};
+
+	const handleBoardChange = (selectedBoardId: string) => {
+		setEditedTask((prevTask) => ({
+			...prevTask,
+			boardId: Number(selectedBoardId),
 		}));
 	};
 
@@ -98,6 +109,22 @@ export const EditTaskForm: React.FC<EditTaskFormProps> = ({
 							key={flag.id}
 							value={flag.id.toString()}>
 							{flag.name}
+						</SelectItem>
+					))}
+				</SelectContent>
+			</Select>
+			<Select
+				value={editedTask.boardId.toString()}
+				onValueChange={handleBoardChange}>
+				<SelectTrigger>
+					<SelectValue />
+				</SelectTrigger>
+				<SelectContent>
+					{boards.map((board: BoardType) => (
+						<SelectItem
+							key={board.id}
+							value={board.id.toString()}>
+							{board.name}
 						</SelectItem>
 					))}
 				</SelectContent>

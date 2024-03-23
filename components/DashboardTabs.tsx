@@ -74,15 +74,39 @@ export const DashboardTabs = () => {
 				defaultValue='boards'
 				className='w-full mt-4 flex flex-col'>
 				<TabsList className='w-max'>
-					<TabsTrigger value='boards'>Boards</TabsTrigger>
-					<TabsTrigger value='list'>List</TabsTrigger>
-					<TabsTrigger value='other1'>Other</TabsTrigger>
-					<TabsTrigger value='other2'>Other</TabsTrigger>
-					<TabsTrigger value='other3'>Other</TabsTrigger>
-					<TabsTrigger value='other4'>Other</TabsTrigger>
+					<TabsTrigger
+						value='boards'
+						className='text-xs p-1 md:text-sm md:p-2'>
+						Boards
+					</TabsTrigger>
+					<TabsTrigger
+						value='list'
+						className='text-xs p-1 md:text-sm md:p-2'>
+						List
+					</TabsTrigger>
+					<TabsTrigger
+						value='other1'
+						className='text-xs p-1 md:text-sm md:p-2'>
+						Other
+					</TabsTrigger>
+					<TabsTrigger
+						value='other2'
+						className='text-xs p-1 md:text-sm md:p-2'>
+						Other
+					</TabsTrigger>
+					<TabsTrigger
+						value='other3'
+						className='text-xs p-1 md:text-sm md:p-2'>
+						Other
+					</TabsTrigger>
+					<TabsTrigger
+						value='other4'
+						className='text-xs p-1 md:text-sm md:p-2'>
+						Other
+					</TabsTrigger>
 					<TabsTrigger
 						value='other5'
-						className='border-none'>
+						className='border-none text-xs p-1 md:text-sm md:p-2'>
 						Other
 					</TabsTrigger>
 				</TabsList>

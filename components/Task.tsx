@@ -70,51 +70,49 @@ export const Task: React.FC<TaskProps> = ({ task, index }) => {
 				isOpen={isModalOpen}
 				onClose={handleCloseModal}
 				task={task}>
-				<div className='w-4/6 flex flex-col h-full p-6 border-r'>
-					<p className='self-end border rounded-lg p-2 text-sm'>
+				<div className='md:w-4/6 w-3/6 flex flex-col h-full md:p-6 p-2 border-r'>
+					<p className='self-end border rounded-lg p-2 text-xs md:text-sm'>
 						{new Date(task.startDate).toLocaleDateString()} -{" "}
 						{new Date(task.endDate).toLocaleDateString()}
 					</p>
-					<h2 className='text-xl font-semibold p-10'>{task.name}</h2>
-					<p className='flex items-center px-10 py-6 text-sm'>
-						ID: #{task.id}{" "}
-						<Copy
-							size={16}
-							className='ml-2'
-						/>
+					<h2 className='md:text-xl text-base font-semibold p-10'>
+						{task.name}
+					</h2>
+					<p className='flex items-center px-10 py-6 text-xs md:text-sm'>
+						ID: #{task.id} <Copy className='ml-2 md:w-4 md:h-4 h-3 w-3' />
 					</p>
-					<div className='flex items-center gap-4 px-10'>
-						<div className='flex flex-col justify-between p-10 gap-6'>
-							<p>Task Status</p>
-							<p className='font-semibold'>{boardName}</p>
+					<div className='flex flex-col md:flex-row md:items-center items-start md:gap-4 gap-1 md:px-10 px-2'>
+						<div className='flex flex-col justify-between md:p-10 p-2 md:gap-6 gap-1'>
+							<p className='text-xs md:text-base'>Task Status</p>
+							<p className='font-semibold text-xs md:text-base'>{boardName}</p>
 						</div>
-						<div className='flex flex-col p-10 gap-6'>
-							<p>Assingment</p>
+						<div className='flex flex-col md:p-10 p-2 gap-2 md:gap-6'>
+							<p className='text-xs md:text-base'>Assingment</p>
 							<div className='flex items-center'>
 								<Avatars />
 								<Button
 									size='icon'
 									variant='ghost'
-									className='w-8 h-8 border-dashed border rounded-full hover:bg-gray-200 focus:outline-none ml-2'>
+									className='md:w-8 md:h-8 w-4 h-4 border-dashed border rounded-full hover:bg-gray-200 focus:outline-none ml-2'>
 									<Plus />
 								</Button>
 							</div>
 						</div>
-						<div className='flex flex-col p-10 gap-6'>
-							<p>Priority</p>
+						<div className='flex flex-col md:p-10 p-2 gap-2 md:gap-6'>
+							<p className='text-xs md:text-base'>Priority</p>
 							{taskFlag && (
 								<>
 									<MdFlag
 										style={{ color: taskFlag.color }}
-										size={22}
+										className='md:w-5 md:h-5 h-4 w-4'
 									/>
 								</>
 							)}
 						</div>
 					</div>
-					<div className='px-10 w-full'>
-						<p>Description</p>
-						<p className='text-sm'>
+					<div className='md:px-10 px-2 w-full'>
+						<p className='text-xs md:text-base'>Description</p>
+						<p className='text-xs md:text-sm'>
 							{task.description} Lorem ipsum, dolor sit amet consectetur
 							adipisicing elit. Velit aspernatur, illum quidem minima ipsum
 							modi. Lorem ipsum dolor sit amet.
