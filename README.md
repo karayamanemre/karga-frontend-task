@@ -1,6 +1,7 @@
 ## Setting Up the Project
 
 Front-End Dashboard Task
+[Deployed Link](https://karga-frontend-task.vercel.app/)
 
 1. **Clone the repository:**
 
