@@ -1,5 +1,7 @@
 ## Setting Up the Project
 
+Front-End Dashboard Task
+
 1. **Clone the repository:**
 
 ```bash
