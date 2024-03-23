@@ -69,7 +69,7 @@ export const Task: React.FC<TaskProps> = ({ task, index }) => {
 			<DetailModal
 				isOpen={isModalOpen}
 				onClose={handleCloseModal}
-				taskCode={task.code}>
+				task={task}>
 				<div className='w-4/6 flex flex-col h-full p-6 border-r'>
 					<p className='self-end border rounded-lg p-2 text-sm'>
 						{new Date(task.startDate).toLocaleDateString()} -{" "}

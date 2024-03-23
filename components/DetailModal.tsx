@@ -1,8 +1,12 @@
+"use client";
 import { useBoard } from "@/app/contexts/BoardContext";
+import { useState, useEffect } from "react";
+import { Task as TaskType } from "@/app/types";
 import {
 	ChevronDown,
 	ChevronRight,
 	ChevronUp,
+	Edit2Icon,
 	Ellipsis,
 	ListFilter,
 	MessageSquareText,
@@ -22,21 +26,51 @@ import {
 } from "@/components/ui/popover";
 import { toast } from "sonner";
 import ActivityItem from "./ActivityItem";
+import { Input } from "./ui/input";
+import { EditTaskForm } from "./EditTaskForm";
 
 interface ModalProps {
 	isOpen: boolean;
 	onClose: () => void;
 	children: React.ReactNode;
-	taskCode: number;
+	task: TaskType;
 }
 
 const DetailModal: React.FC<ModalProps> = ({
 	isOpen,
 	onClose,
 	children,
-	taskCode,
+	task,
 }) => {
-	const { deleteTask } = useBoard();
+	const { deleteTask, fetchBoards } = useBoard();
+	const [isEditFormVisible, setIsEditFormVisible] = useState(false);
+
+	const handleTaskUpdate = async (updatedTask: TaskType) => {
+		try {
+			const response = await fetch(`/api/tasks/${task.code}`, {
+				method: "PUT",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(updatedTask),
+			});
+			const data = await response.json();
+			if (response.ok) {
+				setIsEditFormVisible(false);
+				toast.success("Task updated successfully!");
+				onClose();
+				fetchBoards();
+			} else {
+				toast.error(`Error: ${data.message}`);
+			}
+		} catch (error) {
+			toast.error("An error occurred while updating the task.");
+		}
+	};
+
+	const handleEdit = () => {
+		setIsEditFormVisible(true);
+	};
 
 	if (!isOpen) return null;
 
@@ -69,18 +103,36 @@ const DetailModal: React.FC<ModalProps> = ({
 									<Ellipsis />
 								</Button>
 							</PopoverTrigger>
-							<PopoverContent className='flex items-center justify-center gap-4 w-max'>
-								<Button
-									variant='destructive'
-									size='sm'
-									onClick={() => {
-										deleteTask(taskCode);
-										setTimeout(() => toast("Task başarıyla silindi"), 750);
-									}}
-									className='flex items-center gap-2'>
-									<Trash size={20} />
-									<p>Taskı Sil</p>
-								</Button>
+							<PopoverContent className='flex flex-col items-center justify-center gap-4 w-max'>
+								<div className='flex gap-2 items-center'>
+									<Button
+										size='sm'
+										onClick={handleEdit}
+										className='flex items-center gap-2'>
+										<Edit2Icon size={20} />
+										<p>Taskı Düzenle</p>
+									</Button>
+
+									<Button
+										variant='destructive'
+										size='sm'
+										onClick={() => {
+											deleteTask(task.code);
+											setTimeout(() => toast("Task başarıyla silindi"), 750);
+										}}
+										className='flex items-center gap-2'>
+										<Trash size={20} />
+										<p>Taskı Sil</p>
+									</Button>
+								</div>
+
+								{isEditFormVisible && task && (
+									<EditTaskForm
+										task={task}
+										onSubmit={handleTaskUpdate}
+										onCancel={() => setIsEditFormVisible(false)}
+									/>
+								)}
 							</PopoverContent>
 						</Popover>
 

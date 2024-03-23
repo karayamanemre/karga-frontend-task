@@ -33,14 +33,9 @@ export const NewTaskForm: React.FC<NewTaskFormProps> = ({
 	const [newTaskDescription, setNewTaskDescription] = useState("");
 	const [selectedFlagId, setSelectedFlagId] = useState(flags[0]?.id.toString());
 	const [dateRange, setDateRange] = useState<DateRange | undefined>();
-	const [selectedUnit, setSelectedUnit] = useState("");
 
 	const handleSelectChange = (value: string) => {
 		setSelectedFlagId(value);
-	};
-
-	const handleUnitChange = (value: string) => {
-		setSelectedUnit(value);
 	};
 
 	const handleNewTaskSubmit = async () => {
@@ -55,7 +50,6 @@ export const NewTaskForm: React.FC<NewTaskFormProps> = ({
 			endDate: dateRange?.to
 				? dateRange.to.toISOString()
 				: new Date().toISOString(),
-			selectedUnit,
 		};
 
 		try {
