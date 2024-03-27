@@ -6,7 +6,7 @@ import AttachmentItem from "./AttachmentItem";
 export default function DetailTabs() {
 	return (
 		<Tabs
-			defaultValue='boards'
+			defaultValue='attachment'
 			className='md:w-full md:mt-4 mt-2 flex flex-col rounded-xl border'>
 			<TabsList className='md:w-full flex flex-wrap bg-gray-100 justify-start md:justify-around rounded-b-none'>
 				<TabsTrigger
